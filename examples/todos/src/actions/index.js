@@ -2,7 +2,7 @@
 // let nextTodoId = 0
 export const addTodo = (text) => ({
   type: 'ADD_TODO',
-  id: Math.random().toString(36).substr(2), // nextTodoId++,
+  id: Math.floor(Math.random() * 0x100000000), // nextTodoId++,
   text
 })
 
