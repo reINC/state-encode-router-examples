@@ -6,14 +6,14 @@ import App from './components/App'
 import reducer from './reducers'
 
 import { navigate } from './actions'
-import { HashRouter } from 'state-encode-router'
+import { Router } from 'state-encode-router'
 import * as routerPresetPako from 'state-encode-router-preset-pako'
 import * as routerPresetSchemapack from 'state-encode-router-preset-schemapack'
 
 const store = createStore(reducer)
 
 // Tutorial step 3: initialize the router and listen to navigation
-const router = new HashRouter(
+const router = new Router(
   routerPresetPako.withOptions({
     decompress: {
       to: '' // Decompress to byte array for schemapack
@@ -33,11 +33,11 @@ const router = new HashRouter(
         visibilityFilter: ['SHOW_ALL', 'SHOW_ACTIVE', 'SHOW_COMPLETED']
       }
     }
-)).addNavigationListener((state) => {
+)).addStateChangeListener((state) => {
   store.dispatch(navigate(state))
 }).start()
 
-// Tutorial step 4: subscribe to state change and perform navigation
+// Tutorial step 4: subscribe to store state change and perform navigation
 store.subscribe(() => {
   router.navigate(store.getState());
 })
